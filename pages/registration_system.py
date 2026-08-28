@@ -258,48 +258,45 @@ with student_col1:
 
     # DATE OF BIRTH
     dob_value = date.today()
-
-if data and data[2]:
-    try:
-        if isinstance(data[2], datetime):
-            dob_value = data[2].date()
-
-        elif isinstance(data[2], date):
-            dob_value = data[2]
-
-        else:
-            dob_text = str(data[2]).strip()
-
-            date_formats = [
-                "%Y-%m-%d",
-                "%Y-%m-%d %H:%M:%S",
-                "%d/%m/%Y",
-                "%d-%m-%Y",
-                "%Y/%m/%d",
-                "%m/%d/%Y"
-            ]
-
-            for fmt in date_formats:
-                try:
-                    dob_value = datetime.strptime(
-                        dob_text,
-                        fmt
-                    ).date()
-                    break
-                except ValueError:
-                    pass
-
+    if data and data[2]:
+        try:
+            if isinstance(data[2], datetime):
+                dob_value = data[2].date()
+    
+            elif isinstance(data[2], date):
+                dob_value = data[2]
+    
+            else:
+                dob_text = str(data[2]).strip()
+    
+                date_formats = [
+                    "%Y-%m-%d",
+                    "%Y-%m-%d %H:%M:%S",
+                    "%d/%m/%Y",
+                    "%d-%m-%Y",
+                    "%Y/%m/%d",
+                    "%m/%d/%Y"
+                ]
+    
+                for fmt in date_formats:
+                    try:
+                        dob_value = datetime.strptime(
+                            dob_text,
+                            fmt
+                        ).date()
+                        break
+                    except ValueError:
+                        continue
+    
     except Exception:
         dob_value = date.today()
-
-
-dob = st.date_input(
-    "Date of Birth",
-    value=dob_value,
-    min_value=date(1950, 1, 1),
-    max_value=date.today(),
-    key=f"dob_{st.session_state.form_version}"
-)
+    dob = st.date_input(
+        "Date of Birth",
+        value=dob_value,
+        min_value=date(1950, 1, 1),
+        max_value=date.today(),
+        key=f"dob_{st.session_state.form_version}"
+    )
 
     # GENDER
     gender_value = (

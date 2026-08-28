@@ -284,14 +284,14 @@ with student_col1:
                         ).date()
                         break
                     except ValueError:
-                        continue
+                        pass
     
         except Exception:
             dob_value = date.today()
     dob = st.date_input(
         "Date of Birth",
         value=dob_value,
-        min_value=date(1950, 1, 1),
+        min_value=date(2000, 1, 1),
         max_value=date.today(),
         key=f"dob_{st.session_state.form_version}"
     )

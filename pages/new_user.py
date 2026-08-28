@@ -9,10 +9,14 @@ st.set_page_config(
 
 def get_database():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="student_registration"
+        host="gateway01.ap-southeast-1.prod.aws.tidbcloud.com",
+        port=4000,
+        user="5WtwPzksksDPRZX.root",
+        password="N5sodO8ZaMzPg4yJ",
+        database="student_registration",
+        ssl_ca="ca cert.pem",
+        ssl_verify_cert=True,
+        ssl_verify_identity=True
     )
 
 st.markdown("""

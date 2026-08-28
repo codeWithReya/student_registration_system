@@ -8,7 +8,7 @@ This application provides a simple and user-friendly interface for staff to mana
 
 ## 🚀 Live Demo
 
-👉 **[Open Student Registration System]([YOUR-STREAMLIT-APP-LINK-HERE](https://studentregistrationsystem-bncj5u8yucwvmasfsmpkw8.streamlit.app))**
+👉 **[Open Student Registration System](https://studentregistrationsystem-bncj5u8yucwvmasfsmpkw8.streamlit.app)**
 
 > The live application is deployed using Streamlit Cloud.
 

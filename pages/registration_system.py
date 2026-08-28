@@ -262,10 +262,8 @@ with student_col1:
         try:
             if isinstance(data[2], datetime):
                 dob_value = data[2].date()
-    
             elif isinstance(data[2], date):
                 dob_value = data[2]
-    
             else:
                 dob_text = str(data[2]).strip()
     
@@ -288,8 +286,8 @@ with student_col1:
                     except ValueError:
                         continue
     
-    except Exception:
-        dob_value = date.today()
+        except Exception:
+            dob_value = date.today()
     dob = st.date_input(
         "Date of Birth",
         value=dob_value,

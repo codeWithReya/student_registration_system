@@ -262,40 +262,70 @@ with student_col1:
         try:
             if isinstance(data[2], datetime):
                 dob_value = data[2].date()
+    
             elif isinstance(data[2], date):
                 dob_value = data[2]
+    
             else:
                 dob_text = str(data[2]).strip()
-    
-                date_formats = [
+                for fmt in [
                     "%Y-%m-%d",
                     "%Y-%m-%d %H:%M:%S",
                     "%d/%m/%Y",
                     "%d-%m-%Y",
-                    "%Y/%m/%d",
-                    "%m/%d/%Y"
-                ]
-    
-                for fmt in date_formats:
+                    "%Y/%m/%d"
+                ]:
                     try:
                         dob_value = datetime.strptime(
-                            dob_text,
-                            fmt
+                            dob_text, fmt
                         ).date()
                         break
                     except ValueError:
-                        pass
-    
+                        continue
         except Exception:
             dob_value = date.today()
-    dob = st.date_input(
-        "Date of Birth",
-        value=dob_value,
-        min_value=date(2000, 1, 1),
-        max_value=date.today(),
-        key=f"dob_{st.session_state.form_version}"
+            
+    # DOB selectors
+    dob_col1, dob_col2, dob_col3 = st.columns(3)
+    with dob_col1:
+        dob_year = st.selectbox(
+            "Year",
+            list(range(2000, date.today().year + 1)),
+            index=(
+                dob_value.year - 2000
+                if 2000 <= dob_value.year <= date.today().year
+                else date.today().year - 2000
+            ),
+            key=f"dob_year_{st.session_state.form_version}"
+        )
+    with dob_col2:
+        dob_month = st.selectbox(
+            "Month",
+            list(range(1, 13)),
+            index=dob_value.month - 1,
+            key=f"dob_month_{st.session_state.form_version}"
+        )
+    with dob_col3:
+        import calendar
+    
+        max_day = calendar.monthrange(
+            dob_year,
+            dob_month
+        )[1]
+        dob_day = st.selectbox(
+            "Day",
+            list(range(1, max_day + 1)),
+            index=min(
+                dob_value.day,
+                max_day
+            ) - 1,
+            key=f"dob_day_{st.session_state.form_version}"
+        )
+    dob = date(
+        dob_year,
+        dob_month,
+        dob_day
     )
-
     # GENDER
     gender_value = (
         str(data[3])
